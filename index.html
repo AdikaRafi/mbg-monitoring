@@ -1,985 +1,329 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Untitled</title>
-    <meta property="og:title" content="Untitled" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="utf-8" />
-    <meta property="twitter:card" content="summary_large_image" />
-
-    <style data-tag="reset-style-sheet">
-      html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;  -webkit-font-smoothing: antialiased;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6,figure,blockquote,figcaption {  margin: 0;  padding: 0;}button {  background-color: transparent;}button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] {  -webkit-appearance: button;  color: inherit;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}pre {  white-space: normal;}input {  padding: 2px 4px;}img {  display: block;}details {  display: block;  margin: 0;  padding: 0;}summary::-webkit-details-marker {  display: none;}[data-thq="accordion"] [data-thq="accordion-content"] {  max-height: 0;  overflow: hidden;  transition: max-height 0.3s ease-in-out;  padding: 0;}[data-thq="accordion"] details[data-thq="accordion-trigger"][open] + [data-thq="accordion-content"] {  max-height: 1000vh;}details[data-thq="accordion-trigger"][open] summary [data-thq="accordion-icon"] {  transform: rotate(180deg);}html { scroll-behavior: smooth  }
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MBG Monitoring Dashboard Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#197fe6",
+                        "primary-dark": "#156cb8",
+                        "primary-light": "#eef6fd",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111921",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2632",
+                        "border-light": "#e2e8f0",
+                        "border-dark": "#2d3748",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569; 
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #64748b; 
+        }
     </style>
-    <style data-tag="default-style-sheet">
-      html {
-        font-family: Inter;
-        font-size: 16px;
-      }
-
-      body {
-        font-weight: 400;
-        font-style:normal;
-        text-decoration: none;
-        text-transform: none;
-        letter-spacing: normal;
-        line-height: 1.15;
-        color: var(--dl-color-theme-neutral-dark);
-        background: var(--dl-color-theme-neutral-light);
-
-        fill: var(--dl-color-theme-neutral-dark);
-      }
-    </style>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/animate.css@4.1.1/animate.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-      data-tag="font"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"
-    />
-  </head>
-  <body>
-    <link rel="stylesheet" href="./style.css" />
-    <div>
-      <link href="./index.css" rel="stylesheet" />
-
-      <div class="home-container1">
-        <div class="home-thq-body-elm">
-          <div class="home-thq-container-elm10">
-            <div class="home-thq-aside-sidebar-elm">
-              <div class="home-thq-container-elm11">
-                <div class="home-thq-container-elm12">
-                  <img
-                    src="public/external/container17-x5vf.svg"
-                    alt="Container17"
-                    class="home-thq-container-elm13"
-                  />
-                  <div class="home-thq-container-elm14">
-                    <span class="home-thq-text-elm10">MBG MONITORING</span>
-                  </div>
-                </div>
-              </div>
-              <div class="home-thq-nav-elm">
-                <div class="home-thq-link-elm10">
-                  <img
-                    src="public/external/container113-n1o.svg"
-                    alt="Container113"
-                    class="home-thq-container-elm15"
-                  />
-                  <div class="home-thq-container-elm16">
-                    <span class="home-thq-text-elm11">Dashboard</span>
-                  </div>
-                </div>
-                <div class="home-thq-link-elm11">
-                  <img
-                    src="public/external/container118-0qzn.svg"
-                    alt="Container118"
-                    class="home-thq-container-elm17"
-                  />
-                  <div class="home-thq-container-elm18">
-                    <span class="home-thq-text-elm12">Menu MBG</span>
-                  </div>
-                </div>
-                <div class="home-thq-link-elm12">
-                  <img
-                    src="public/external/container123-mpho.svg"
-                    alt="Container123"
-                    class="home-thq-container-elm19"
-                  />
-                  <div class="home-thq-container-elm20">
-                    <span class="home-thq-text-elm13">
-                      Distribution Tracking
-                    </span>
-                  </div>
-                </div>
-                <div class="home-thq-link-elm13">
-                  <img
-                    src="public/external/container128-28cl.svg"
-                    alt="Container128"
-                    class="home-thq-container-elm21"
-                  />
-                  <div class="home-thq-container-elm22">
-                    <span class="home-thq-text-elm14">
-                      Transparansi Anggaran
-                    </span>
-                  </div>
-                </div>
-                <div class="home-thq-link-elm14">
-                  <img
-                    src="public/external/container133-ojza.svg"
-                    alt="Container133"
-                    class="home-thq-container-elm23"
-                  />
-                  <div class="home-thq-container-elm24">
-                    <span class="home-thq-text-elm15">Data Siswa</span>
-                  </div>
-                </div>
-                <div class="home-thq-container-elm25">
-                  <span class="home-thq-text-elm16">Reports</span>
-                </div>
-                <div class="home-thq-link-elm15">
-                  <img
-                    src="public/external/container140-r52.svg"
-                    alt="Container140"
-                    class="home-thq-container-elm26"
-                  />
-                  <div class="home-thq-container-elm27">
-                    <span class="home-thq-text-elm17">Analisis</span>
-                  </div>
-                </div>
-                <div class="home-thq-link-elm16">
-                  <img
-                    src="public/external/container145-vwyl.svg"
-                    alt="Container145"
-                    class="home-thq-container-elm28"
-                  />
-                  <div class="home-thq-container-elm29">
-                    <span class="home-thq-text-elm18">Laporan Masuk</span>
-                  </div>
-                  <div class="home-thq-margin-elm10">
-                    <div class="home-thq-background-elm10">
-                      <span class="home-thq-text-elm19">12</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="home-thq-horizontal-border-elm">
-                <div class="home-thq-link-elm17">
-                  <img
-                    src="public/external/container154-5eeq.svg"
-                    alt="Container154"
-                    class="home-thq-container-elm30"
-                  />
-                  <div class="home-thq-container-elm31">
-                    <span class="home-thq-text-elm20">Log Out</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="home-thq-main-content-elm">
-              <div class="home-thq-header-top-bar-elm">
-                <div class="home-thq-container-elm32">
-                  <div class="home-thq-search-elm">
-                    <div class="home-thq-input-elm">
-                      <div class="home-thq-container-elm33">
-                        <span class="home-thq-text-elm21">
-                          Search schools, regions, or menus...
-                        </span>
-                      </div>
-                    </div>
-                    <div class="home-thq-container-elm34">
-                      <img
-                        src="public/external/container166-7473.svg"
-                        alt="Container166"
-                        class="home-thq-container-elm35"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="home-thq-container-elm36">
-                  <button class="home-thq-button-notifications-elm">
-                    <img
-                      src="public/external/container170-28u.svg"
-                      alt="Container170"
-                      class="home-thq-container-elm37"
-                    />
-                    <div class="home-thq-background-elm11">
-                      <img
-                        src="public/external/overlayshadow173-7har-200h.png"
-                        alt="OverlayShadow173"
-                        class="home-thq-overlay-shadow-elm"
-                      />
-                    </div>
-                  </button>
-                  <div class="home-thq-profile-dropdownmargin-elm">
-                    <div class="home-thq-profile-dropdown-elm">
-                      <div class="home-thq-container-elm38">
-                        <div class="home-thq-container-elm39">
-                          <span class="home-thq-text-elm22">Budi Santoso</span>
-                        </div>
-                        <div class="home-thq-container-elm40">
-                          <span class="home-thq-text-elm23">
-                            School Administrator
-                          </span>
-                        </div>
-                      </div>
-                      <div
-                        class="home-thq-profileavatarofaschooladministrator-elm"
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="home-thq-scrollable-content-elm">
-                <div class="home-thq-container-elm41">
-                  <div class="home-thq-container-elm42">
-                    <div class="home-thq-heading1-elm">
-                      <span class="home-thq-text-elm24">
-                        Dashboard Overview
-                      </span>
-                    </div>
-                    <div class="home-thq-container-elm43">
-                      <span class="home-thq-text-elm25">
-                        <span class="home-thq-text-elm26">
-                          Monitoring Nasional MBG •
-                        </span>
-                        <span>Monday, 24 Oct 2023</span>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="home-thq-container-elm44">
-                    <button class="home-thq-button-elm1">
-                      <div class="home-thq-margin-elm11">
-                        <img
-                          src="public/external/container192-w5j.svg"
-                          alt="Container192"
-                          class="home-thq-container-elm45"
-                        />
-                      </div>
-                      <span class="home-thq-text-elm28">Filter</span>
-                    </button>
-                    <button class="home-thq-button-elm2">
-                      <div class="home-thq-margin-elm12">
-                        <img
-                          src="public/external/container197-lebo.svg"
-                          alt="Container197"
-                          class="home-thq-container-elm46"
-                        />
-                      </div>
-                      <span class="home-thq-text-elm29">Export Report</span>
-                    </button>
-                  </div>
-                </div>
-                <div
-                  class="home-thq-gridlayoutthathandlesthe5cards-usingflexwraporgridw-elm"
-                >
-                  <div class="home-thq-card1-todays-menu-elm">
-                    <div class="home-thq-container-elm47">
-                      <img
-                        src="public/external/background1103-lgvi.svg"
-                        alt="Background1103"
-                        class="home-thq-background-elm12"
-                      />
-                      <div class="home-thq-background-elm13">
-                        <span class="home-thq-text-elm30">Menu A</span>
-                      </div>
-                    </div>
-                    <div class="home-thq-heading3-elm1">
-                      <span class="home-thq-text-elm31">Menu hari ini</span>
-                    </div>
-                    <div class="home-thq-container-elm48">
-                      <span class="home-thq-text-elm32">Nasi Kuning …</span>
-                    </div>
-                    <div class="home-thq-container-elm49">
-                      <img
-                        src="public/external/margin1112-ky48.svg"
-                        alt="Margin1112"
-                        class="home-thq-margin-elm13"
-                      />
-                      <span class="home-thq-text-elm33">540 kcal / porsi</span>
-                    </div>
-                  </div>
-                  <div class="home-thq-card2-distribution-status-elm">
-                    <div class="home-thq-container-elm50">
-                      <img
-                        src="public/external/background1117-1l6.svg"
-                        alt="Background1117"
-                        class="home-thq-background-elm14"
-                      />
-                      <div class="home-thq-background-elm15">
-                        <span class="home-thq-text-elm34">On Track</span>
-                      </div>
-                    </div>
-                    <div class="home-thq-heading3-elm2">
-                      <span class="home-thq-text-elm35">Distribusi</span>
-                    </div>
-                    <div class="home-thq-container-elm51">
-                      <div class="home-thq-container-elm52">
-                        <span class="home-thq-text-elm36">85%</span>
-                      </div>
-                      <div class="home-thq-margin-elm14">
-                        <span class="home-thq-text-elm37">10:45 AM</span>
-                      </div>
-                    </div>
-                    <div class="home-thq-background-elm16">
-                      <img
-                        src="public/external/background1129-pa9z-200h.png"
-                        alt="Background1129"
-                        class="home-thq-background-elm17"
-                      />
-                    </div>
-                  </div>
-                  <div class="home-thq-card3-total-students-elm">
-                    <div class="home-thq-container-elm53">
-                      <img
-                        src="public/external/background1132-svv.svg"
-                        alt="Background1132"
-                        class="home-thq-background-elm18"
-                      />
-                      <div class="home-thq-background-elm19">
-                        <img
-                          src="public/external/margin1135-dhm8.svg"
-                          alt="Margin1135"
-                          class="home-thq-margin-elm15"
-                        />
-                        <span class="home-thq-text-elm38">2%</span>
-                      </div>
-                    </div>
-                    <div class="home-thq-heading3-elm3">
-                      <span class="home-thq-text-elm39">Siswa</span>
-                    </div>
-                    <div class="home-thq-container-elm54">
-                      <span class="home-thq-text-elm40">1.2M</span>
-                    </div>
-                    <div class="home-thq-container-elm55">
-                      <span class="home-thq-text-elm41">Total siswa aktif</span>
-                    </div>
-                  </div>
-                  <div class="home-thq-card4-active-complaints-elm">
-                    <div class="home-thq-container-elm56">
-                      <img
-                        src="public/external/background1146-shqa.svg"
-                        alt="Background1146"
-                        class="home-thq-background-elm20"
-                      />
-                      <div class="home-thq-background-elm21">
-                        <span class="home-thq-text-elm42">
-                          <span>Action</span>
-                          <br />
-                          <span>Required</span>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="home-thq-heading3-elm4">
-                      <span class="home-thq-text-elm45">Komplain</span>
-                    </div>
-                    <div class="home-thq-container-elm57">
-                      <span class="home-thq-text-elm46">12</span>
-                    </div>
-                    <div class="home-thq-container-elm58">
-                      <span class="home-thq-text-elm47">
-                        Needs immediate review
-                      </span>
-                    </div>
-                    <img
-                      src="public/external/background1156-v4kb-200w.png"
-                      alt="Background1156"
-                      class="home-thq-background-elm22"
-                    />
-                  </div>
-                  <div class="home-thq-card5-monthly-budget-elm">
-                    <div class="home-thq-container-elm59">
-                      <img
-                        src="public/external/background1159-aoir.svg"
-                        alt="Background1159"
-                        class="home-thq-background-elm23"
-                      />
-                      <div class="home-thq-background-elm24">
-                        <span class="home-thq-text-elm48">Oct '23</span>
-                      </div>
-                    </div>
-                    <div class="home-thq-heading3-elm5">
-                      <span class="home-thq-text-elm49">Budget Used</span>
-                    </div>
-                    <div class="home-thq-container-elm60">
-                      <div class="home-thq-container-elm61">
-                        <span class="home-thq-text-elm50">65%</span>
-                      </div>
-                      <div class="home-thq-margin-elm16">
-                        <span class="home-thq-text-elm51">4.5B / 6.9B IDR</span>
-                      </div>
-                    </div>
-                    <div class="home-thq-background-elm25">
-                      <img
-                        src="public/external/background1171-ajz-200h.png"
-                        alt="Background1171"
-                        class="home-thq-background-elm26"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="home-thq-secondary-section-regional-map-recent-activity-elm"
-                >
-                  <div class="home-thq-main-chart-map-area-elm">
-                    <div class="home-thq-container-elm62">
-                      <div class="home-thq-heading2-elm1">
-                        <span class="home-thq-text-elm52">
-                          Regional Distribution Overview
-                        </span>
-                      </div>
-                      <div class="home-thq-container-elm63">
-                        <button class="home-thq-button-elm3">
-                          <span class="home-thq-text-elm53">Java</span>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 font-display transition-colors duration-200">
+<div class="flex h-screen overflow-hidden">
+<aside class="hidden md:flex flex-col w-64 bg-surface-light dark:bg-surface-dark border-r border-border-light dark:border-border-dark flex-shrink-0 transition-colors duration-200">
+<div class="p-6 flex items-center justify-between">
+<div class="flex items-center gap-2 text-primary font-bold text-xl tracking-tight">
+<span class="material-icons">restaurant_menu</span>
+<span>MBG MONITORING</span>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary rounded-lg font-medium group transition-colors" href="#">
+<span class="material-icons text-[20px]">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white rounded-lg font-medium group transition-colors" href="#">
+<span class="material-icons text-[20px] text-slate-400 dark:text-slate-500 group-hover:text-primary transition-colors">calendar_today</span>
+<span>Menu MBG</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white rounded-lg font-medium group transition-colors" href="#">
+<span class="material-icons text-[20px] text-slate-400 dark:text-slate-500 group-hover:text-primary transition-colors">local_shipping</span>
+<span>Distribution Tracking</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white rounded-lg font-medium group transition-colors" href="#">
+<span class="material-icons text-[20px] text-slate-400 dark:text-slate-500 group-hover:text-primary transition-colors">account_balance_wallet</span>
+<span>Transparansi Anggaran</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white rounded-lg font-medium group transition-colors" href="#">
+<span class="material-icons text-[20px] text-slate-400 dark:text-slate-500 group-hover:text-primary transition-colors">school</span>
+<span>Data Siswa</span>
+</a>
+<div class="pt-4 pb-2">
+<p class="px-3 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Reports</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white rounded-lg font-medium group transition-colors" href="#">
+<span class="material-icons text-[20px] text-slate-400 dark:text-slate-500 group-hover:text-primary transition-colors">bar_chart</span>
+<span>Analisis</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white rounded-lg font-medium group transition-colors" href="#">
+<span class="material-icons text-[20px] text-slate-400 dark:text-slate-500 group-hover:text-primary transition-colors">bug_report</span>
+<span>Laporan Masuk</span>
+<span class="ml-auto bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 py-0.5 px-2 rounded-full text-xs font-semibold">12</span>
+</a>
+</nav>
+<div class="p-4 border-t border-border-light dark:border-border-dark">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">
+<span class="material-icons text-[20px]">logout</span>
+<span class="text-sm font-medium">Log Out</span>
+</a>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+<header class="bg-surface-light dark:bg-surface-dark border-b border-border-light dark:border-border-dark h-16 flex items-center justify-between px-6 lg:px-8 transition-colors duration-200">
+<div class="flex items-center gap-4 flex-1">
+<button class="md:hidden text-slate-500 hover:text-primary transition-colors">
+<span class="material-icons">menu</span>
+</button>
+<div class="relative w-full max-w-md hidden sm:block">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-icons text-slate-400 text-xl">search</span>
+</span>
+<input class="block w-full pl-10 pr-3 py-2 border border-border-light dark:border-slate-600 rounded-lg leading-5 bg-background-light dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm transition duration-150 ease-in-out" placeholder="Search schools, regions, or menus..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-slate-400 hover:text-slate-500 dark:hover:text-slate-300 focus:outline-none">
+<span class="material-icons">notifications</span>
+<span class="absolute top-1.5 right-1.5 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-surface-dark"></span>
+</button>
+<div class="flex items-center gap-3 border-l border-border-light dark:border-slate-700 pl-4 ml-2">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-semibold text-slate-700 dark:text-slate-200">Budi Santoso</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">School Administrator</p>
+</div>
+<img alt="Profile avatar of a school administrator" class="h-9 w-9 rounded-full object-cover border border-slate-200 dark:border-slate-600" data-alt="Administrator portrait photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBtHj1QH4hkugCcRDVkDdDN3NU0oE6rHSPZeIFn-G3dWg3nQ7n2bWBUmPVY6I8qT-6-AB_BDBA-XO9xfszczSsVQxbWhgGCmJq6rw1yfTA2i9-mZ21eWQCq6dhUZwP3mlEHgNRt6fqCY5pNLR7730cYsbvWbEISjHQ2taz2PPh9Vrgb9JUEBuRlIIreNqeCnoYipnLjGqgsM4ItUOb_wZowz1qi_wDlsAn33Tqw2VPMEkMgY74D90z811hV5_Q4Wphy_v4lh1z9C4"/>
+</div>
+</div>
+</header>
+<div class="flex-1 overflow-auto bg-background-light dark:bg-background-dark p-6 lg:p-8">
+<div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<h1 class="text-2xl font-bold text-slate-900 dark:text-white">Dashboard Overview</h1>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Monitoring Nasional MBG • <span class="text-primary font-medium">Monday, 24 Oct 2023</span></p>
+</div>
+<div class="flex gap-2">
+<button class="inline-flex items-center px-4 py-2 border border-border-light dark:border-slate-600 rounded-lg shadow-sm text-sm font-medium text-slate-700 dark:text-slate-200 bg-white dark:bg-surface-dark hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+<span class="material-icons text-base mr-2 text-slate-400">filter_list</span>
+                            Filter
                         </button>
-                        <button class="home-thq-button-elm4">
-                          <span class="home-thq-text-elm54">Sumatra</span>
+<button class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
+<span class="material-icons text-base mr-2">download</span>
+                            Export Report
                         </button>
-                        <button class="home-thq-button-elm5">
-                          <span class="home-thq-text-elm55">Other</span>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="home-thq-map-placeholder-elm">
-                      <div
-                        class="home-thq-mapof-indonesiashowingdistributionhotspots-elm"
-                      ></div>
-                      <div class="home-thq-overlay-statson-map-elm">
-                        <div
-                          class="home-thq-overlay-border-shadow-overlay-blur-elm1"
-                        >
-                          <div class="home-thq-container-elm64">
-                            <span class="home-thq-text-elm56">JAKARTA</span>
-                          </div>
-                          <div class="home-thq-container-elm65">
-                            <div class="home-thq-container-elm66">
-                              <span class="home-thq-text-elm57">
-                                98% Terdistribusi
-                              </span>
-                            </div>
-                            <img
-                              src="public/external/background1193-9wsp-200h.png"
-                              alt="Background1193"
-                              class="home-thq-background-elm27"
-                            />
-                          </div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4 mb-8">
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-5 border border-border-light dark:border-border-dark shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-4">
+<div class="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg">
+<span class="material-icons text-yellow-600 dark:text-yellow-400">restaurant</span>
+</div>
+<span class="text-xs font-semibold text-slate-400 bg-slate-100 dark:bg-slate-800 dark:text-slate-500 px-2 py-1 rounded">Menu A</span>
+</div>
+<h3 class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">MENU HARI INI</h3>
+<p class="mt-1 text-lg font-bold text-slate-900 dark:text-white truncate" title="Nasi Kuning &amp; Ayam Goreng">Nasi Kuning &amp; ...</p>
+<div class="mt-2 flex items-center text-xs text-slate-500 dark:text-slate-400">
+<span class="material-icons text-sm mr-1">local_fire_department</span>
+                            540 kcal / porsi
                         </div>
-                        <div
-                          class="home-thq-overlay-border-shadow-overlay-blur-elm2"
-                        >
-                          <div class="home-thq-container-elm67">
-                            <span class="home-thq-text-elm58">JaWA TIMUR</span>
-                          </div>
-                          <div class="home-thq-container-elm68">
-                            <div class="home-thq-container-elm69">
-                              <span class="home-thq-text-elm59">
-                                92% Terdistribusi
-                              </span>
-                            </div>
-                            <img
-                              src="public/external/background1200-8bo-200h.png"
-                              alt="Background1200"
-                              class="home-thq-background-elm28"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="home-thq-recent-activity-feed-elm">
-                    <div class="home-thq-margin-elm17">
-                      <div class="home-thq-container-elm70">
-                        <div class="home-thq-heading2-elm2">
-                          <span class="home-thq-text-elm60">Live Updates</span>
-                        </div>
-                        <div class="home-thq-link-elm18">
-                          <span class="home-thq-text-elm61">View All</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="home-thq-container-elm71">
-                      <div class="home-thq-item1-elm">
-                        <div class="home-thq-margin-elm18">
-                          <div class="home-thq-container-elm72">
-                            <div class="home-thq-background-elm29">
-                              <img
-                                src="public/external/container1213-c9f.svg"
-                                alt="Container1213"
-                                class="home-thq-container-elm73"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="home-thq-container-elm74">
-                          <div class="home-thq-container-elm75">
-                            <span class="home-thq-text-elm62">
-                              Delivery Completed
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-5 border border-border-light dark:border-border-dark shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-4">
+<div class="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+<span class="material-icons text-primary dark:text-blue-400">local_shipping</span>
+</div>
+<span class="text-xs font-semibold text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-400 px-2 py-1 rounded">On Track</span>
+</div>
+<h3 class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">DISTRIBUSI</h3>
+<div class="mt-2 flex items-end justify-between">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">85%</span>
+<span class="text-xs text-slate-500 mb-1">10:45 AM</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-1.5 mt-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-5 border border-border-light dark:border-border-dark shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-4">
+<div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
+<span class="material-icons text-indigo-600 dark:text-indigo-400">school</span>
+</div>
+<span class="text-xs font-semibold text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-400 px-2 py-1 rounded flex items-center">
+<span class="material-icons text-xs mr-0.5">trending_up</span> 2%
                             </span>
-                          </div>
-                          <div class="home-thq-container-elm76">
-                            <span class="home-thq-text-elm63">
-                              <span>SMA Negeri 1 Jakarta received 450</span>
-                              <br />
-                              <span>packages.</span>
-                            </span>
-                          </div>
-                          <div class="home-thq-container-elm77">
-                            <span class="home-thq-text-elm66">2 mins ago</span>
-                          </div>
+</div>
+<h3 class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">SISWA</h3>
+<p class="mt-1 text-2xl font-bold text-slate-900 dark:text-white">1.2M</p>
+<div class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                            Total siswa aktif
                         </div>
-                      </div>
-                      <div class="home-thq-item2-elm">
-                        <div class="home-thq-margin-elm19">
-                          <div class="home-thq-container-elm78">
-                            <div class="home-thq-background-elm30">
-                              <img
-                                src="public/external/container1226-ljfl.svg"
-                                alt="Container1226"
-                                class="home-thq-container-elm79"
-                              />
-                            </div>
-                          </div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-5 border border-border-light dark:border-border-dark shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute right-0 top-0 h-full w-1 bg-red-500"></div>
+<div class="flex items-start justify-between mb-4">
+<div class="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
+<span class="material-icons text-red-600 dark:text-red-400">priority_high</span>
+</div>
+<span class="text-xs font-semibold text-red-600 bg-red-100 dark:bg-red-900/30 dark:text-red-400 px-2 py-1 rounded">Action Required</span>
+</div>
+<h3 class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">KOMPLAIN</h3>
+<p class="mt-1 text-2xl font-bold text-slate-900 dark:text-white">12</p>
+<div class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                            Needs immediate review
                         </div>
-                        <div class="home-thq-container-elm80">
-                          <div class="home-thq-container-elm81">
-                            <span class="home-thq-text-elm67">Menu Update</span>
-                          </div>
-                          <div class="home-thq-container-elm82">
-                            <span class="home-thq-text-elm68">
-                              <span>Tomorrow's menu changed to</span>
-                              <br />
-                              <span>"Gado-gado" for East Jakarta.</span>
-                            </span>
-                          </div>
-                          <div class="home-thq-container-elm83">
-                            <span class="home-thq-text-elm71">15 mins ago</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="home-thq-item3-elm">
-                        <div class="home-thq-margin-elm20">
-                          <div class="home-thq-container-elm84">
-                            <div class="home-thq-background-elm31">
-                              <img
-                                src="public/external/container1239-zl5j.svg"
-                                alt="Container1239"
-                                class="home-thq-container-elm85"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="home-thq-container-elm86">
-                          <div class="home-thq-container-elm87">
-                            <span class="home-thq-text-elm72">
-                              New Complaint
-                            </span>
-                          </div>
-                          <div class="home-thq-container-elm88">
-                            <span class="home-thq-text-elm73">
-                              SD Inpres 03 reported late delivery.
-                            </span>
-                          </div>
-                          <div class="home-thq-container-elm89">
-                            <span class="home-thq-text-elm74">45 mins ago</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="home-thq-item4-elm">
-                        <div class="home-thq-margin-elm21">
-                          <div class="home-thq-container-elm90">
-                            <div class="home-thq-background-elm32">
-                              <img
-                                src="public/external/container1252-npzk9.svg"
-                                alt="Container1252"
-                                class="home-thq-container-elm91"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="home-thq-container-elm92">
-                          <div class="home-thq-container-elm93">
-                            <span class="home-thq-text-elm75">
-                              Budget Disbursement
-                            </span>
-                          </div>
-                          <div class="home-thq-container-elm94">
-                            <span class="home-thq-text-elm76">
-                              Weekly funds released to vendors.
-                            </span>
-                          </div>
-                          <div class="home-thq-container-elm95">
-                            <span class="home-thq-text-elm77">2 hours ago</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="home-thq-footer-quick-links-elm">
-                  <div class="home-thq-container-elm96">
-                    <span class="home-thq-text-elm78">
-                      © 2023 MBG National Program. Government of Indonesia.
-                    </span>
-                  </div>
-                  <div class="home-thq-container-elm97">
-                    <div class="home-thq-link-elm19">
-                      <span class="home-thq-text-elm79">Privacy Policy</span>
-                    </div>
-                    <div class="home-thq-link-elm20">
-                      <span class="home-thq-text-elm80">Terms of Service</span>
-                    </div>
-                    <div class="home-thq-link-elm21">
-                      <span class="home-thq-text-elm81">Help Center</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <a href="https://play.teleporthq.io/signup" class="home-link">
-          <div aria-label="Sign up to TeleportHQ" class="home-container2">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 19 21"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              class="home-icon1"
-            >
-              <path
-                d="M9.1017 4.64355H2.17867C0.711684 4.64355 -0.477539 5.79975 -0.477539 7.22599V13.9567C-0.477539 15.3829 0.711684 16.5391 2.17867 16.5391H9.1017C10.5687 16.5391 11.7579 15.3829 11.7579 13.9567V7.22599C11.7579 5.79975 10.5687 4.64355 9.1017 4.64355Z"
-                fill="#B23ADE"
-              ></path>
-              <path
-                d="M10.9733 12.7878C14.4208 12.7878 17.2156 10.0706 17.2156 6.71886C17.2156 3.3671 14.4208 0.649963 10.9733 0.649963C7.52573 0.649963 4.73096 3.3671 4.73096 6.71886C4.73096 10.0706 7.52573 12.7878 10.9733 12.7878Z"
-                fill="#FF5C5C"
-              ></path>
-              <path
-                d="M17.7373 13.3654C19.1497 14.1588 19.1497 15.4634 17.7373 16.2493L10.0865 20.5387C8.67402 21.332 7.51855 20.6836 7.51855 19.0968V10.5141C7.51855 8.92916 8.67402 8.2807 10.0865 9.07221L17.7373 13.3654Z"
-                fill="#2874DE"
-              ></path>
-            </svg>
-            <span class="home-text4">Built in TeleportHQ</span>
-          </div>
-        </a>
-      </div>
-      <link rel="canonical" href="https://untitled-e9nclc.teleporthq.app/" />
-    </div>
-  </body>
-</html>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-5 border border-border-light dark:border-border-dark shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-4">
+<div class="p-2 bg-teal-100 dark:bg-teal-900/30 rounded-lg">
+<span class="material-icons text-teal-600 dark:text-teal-400">account_balance_wallet</span>
+</div>
+<span class="text-xs font-semibold text-slate-400 bg-slate-100 dark:bg-slate-800 dark:text-slate-500 px-2 py-1 rounded">Oct '23</span>
+</div>
+<h3 class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">BUDGET USED</h3>
+<div class="mt-2 flex items-end justify-between">
+<span class="text-lg font-bold text-slate-900 dark:text-white">65%</span>
+<span class="text-xs text-slate-500 mb-1">4.5B / 6.9B IDR</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-1.5 mt-2">
+<div class="bg-teal-500 h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm p-6">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-lg font-bold text-slate-900 dark:text-white">Regional Distribution Overview</h2>
+<div class="flex gap-2">
+<button class="text-xs font-medium bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 px-3 py-1.5 rounded-lg transition-colors">Java</button>
+<button class="text-xs font-medium bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 px-3 py-1.5 rounded-lg transition-colors">Sumatra</button>
+<button class="text-xs font-medium bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 px-3 py-1.5 rounded-lg transition-colors">Other</button>
+</div>
+</div>
+<div class="relative w-full aspect-[16/9] bg-slate-50 dark:bg-slate-800 rounded-xl overflow-hidden group">
+<img alt="Map of Indonesia showing distribution hotspots" class="w-full h-full object-cover opacity-80 mix-blend-multiply dark:mix-blend-normal dark:opacity-40 hover:scale-105 transition-transform duration-700" data-alt="Abstract map graphic of Indonesia" data-location="Indonesia" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZr6k6NDjlOvTi5tz19ceNrlrGCg8KotQxK0m91jnSXZeIcMzcFFPTW9MdU2rhXiFeXTN-2AmM6lTS8I4frTX1iCwFQM0OqiW9cUspocCEWLcSXU9TarGMm-WTeQgzPpeoVkiaznuMvVi37HNK5rZVjpsC5-ZNcGdtKEZQ_IvDbNdVyRfWn53ZAs3QjRN5AKAMEXdLf3dgRGlzcgtjMUmA6UHfNLYtX4aU4_uWRT0VFNA8vlyWMrWKltldbuQcdJG1TJ0qseRkQ2w"/>
+<div class="absolute bottom-4 left-4 right-4 flex gap-4">
+<div class="bg-white/90 dark:bg-surface-dark/90 backdrop-blur-sm p-3 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 flex-1">
+<p class="text-xs text-slate-500 uppercase font-semibold">JAKARTA</p>
+<div class="flex items-center justify-between mt-1">
+<span class="font-bold text-slate-800 dark:text-white">98% Terdistribusi</span>
+<span class="h-2 w-2 rounded-full bg-green-500"></span>
+</div>
+</div>
+<div class="bg-white/90 dark:bg-surface-dark/90 backdrop-blur-sm p-3 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 flex-1 hidden sm:block">
+<p class="text-xs text-slate-500 uppercase font-semibold">JAWA TIMUR</p>
+<div class="flex items-center justify-between mt-1">
+<span class="font-bold text-slate-800 dark:text-white">92% Terdistribusi</span>
+<span class="h-2 w-2 rounded-full bg-green-500"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm p-6 flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-lg font-bold text-slate-900 dark:text-white">Live Updates</h2>
+<a class="text-sm text-primary hover:text-primary-dark font-medium" href="#">View All</a>
+</div>
+<div class="space-y-6 overflow-y-auto flex-1 pr-2 max-h-[400px]">
+<div class="flex gap-4">
+<div class="flex-shrink-0 mt-1">
+<div class="h-8 w-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+<span class="material-icons text-sm text-green-600 dark:text-green-400">check</span>
+</div>
+</div>
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Delivery Completed</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">SMA Negeri 1 Jakarta received 450 packages.</p>
+<p class="text-[10px] text-slate-400 mt-1">2 mins ago</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 mt-1">
+<div class="h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+<span class="material-icons text-sm text-blue-600 dark:text-blue-400">edit</span>
+</div>
+</div>
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Menu Update</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Tomorrow's menu changed to "Gado-gado" for East Jakarta.</p>
+<p class="text-[10px] text-slate-400 mt-1">15 mins ago</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 mt-1">
+<div class="h-8 w-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+<span class="material-icons text-sm text-red-600 dark:text-red-400">warning</span>
+</div>
+</div>
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">New Complaint</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">SD Inpres 03 reported late delivery.</p>
+<p class="text-[10px] text-slate-400 mt-1">45 mins ago</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 mt-1">
+<div class="h-8 w-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-icons text-sm text-slate-500">payments</span>
+</div>
+</div>
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Budget Disbursement</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Weekly funds released to vendors.</p>
+<p class="text-[10px] text-slate-400 mt-1">2 hours ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-border-light dark:border-border-dark flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 dark:text-slate-400">
+<p>© 2023 MBG National Program. Government of Indonesia.</p>
+<div class="flex gap-4 mt-2 md:mt-0">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Help Center</a>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
